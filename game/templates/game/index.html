@@ -1,0 +1,96 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>タイピングゲーム - ほのぼの練習用</title>
+    <link rel="stylesheet" href="{% static 'game/style.css' %}" />
+  </head>
+  <body>
+    <main class="app">
+      <div class="background-layer"></div>
+      <section class="screen screen--title" data-screen="title">
+        <h1>ほのぼのタイピング</h1>
+        <p class="tagline">60秒で気軽に練習できるタイピングゲーム</p>
+        <form class="setup-form">
+          <label for="level-select">レベル選択</label>
+          <select id="level-select" name="level">
+            <option value="easy">かんたん</option>
+            <option value="normal" selected>ふつう</option>
+            <option value="hard">むずかしい</option>
+          </select>
+          <div class="toggles">
+            <label class="toggle">
+              <input type="checkbox" id="sound-toggle" checked />
+              <span>サウンド ON</span>
+            </label>
+            <label class="toggle">
+              <input type="checkbox" id="music-toggle" checked />
+              <span>BGM ON</span>
+            </label>
+          </div>
+        </form>
+        <div class="title-actions">
+          <button type="button" class="btn btn--primary" id="start-button">スタート</button>
+        </div>
+        <section class="how-to">
+          <h2>あそびかた</h2>
+          <ol>
+            <li>レベルを選んで「スタート」。</li>
+            <li>表示された単語を入力欄にタイプ。</li>
+            <li>60秒間でスコアをできるだけ伸ばそう！</li>
+          </ol>
+        </section>
+      </section>
+
+      <section class="screen screen--game" data-screen="game" hidden>
+        <header class="hud">
+          <div class="hud-item">
+            <span class="label">スコア</span>
+            <span class="value" id="score">0</span>
+          </div>
+          <div class="hud-item">
+            <span class="label">ハイスコア</span>
+            <span class="value" id="high-score">0</span>
+          </div>
+          <div class="hud-item">
+            <span class="label">のこり時間</span>
+            <span class="value" id="timer">60</span>
+          </div>
+          <div class="hud-item hud-item--controls">
+            <button type="button" class="btn btn--ghost" id="home-button">タイトルへ</button>
+            <button type="button" class="btn btn--ghost" id="sound-button">🔊</button>
+          </div>
+        </header>
+        <div class="playfield">
+          <div class="level-tag" id="level-tag"></div>
+          <div class="prompt">
+            <p class="prompt-label">出題テキスト</p>
+            <p class="prompt-word" id="prompt-word">-</p>
+          </div>
+          <div class="input-area">
+            <label class="sr-only" for="typing-input">入力欄</label>
+            <input id="typing-input" type="text" autocomplete="off" inputmode="search" />
+          </div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+      </section>
+
+      <section class="screen screen--result" data-screen="result" hidden>
+        <h2>結果</h2>
+        <div class="result-card">
+          <p><span>スコア</span><span id="final-score">0</span></p>
+          <p><span>クリア数</span><span id="final-hits">0</span></p>
+          <p><span>挑戦回数</span><span id="final-total">0</span></p>
+          <p><span>精度</span><span id="final-accuracy">0%</span></p>
+        </div>
+        <div class="result-actions">
+          <button type="button" class="btn btn--primary" id="retry-button">もういちど</button>
+          <button type="button" class="btn btn--ghost" id="back-button">タイトルへ</button>
+        </div>
+      </section>
+    </main>
+    <script src="{% static 'game/app.js' %}" defer></script>
+  </body>
+</html>
